@@ -4,7 +4,7 @@ import tabSetup.tabInformation as tabInformation
 
 def main():
     root = Tk()
-    root.title("IEEEngage Admin")
+    root.title("IEEEvolve Admin")
     root.minsize(800,200)
     root.geometry("600x200")
 
