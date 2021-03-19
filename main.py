@@ -6,7 +6,7 @@ def main():
     root = Tk()
     root.title("IEEEvolve Admin")
     root.minsize(800,200)
-    root.geometry("600x200")
+    root.geometry("600x500")
 
     tabObjects = []
 
