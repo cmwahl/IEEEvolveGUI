@@ -2,6 +2,7 @@
 
 from tkinter import *
 
+
 # this function creates a label-entry box, such as Name: [  TEXT  ]
 def newEntryLabel(root, labelText, labelType, labelDefault, labelOptions):
     frame = Frame(root)
@@ -20,6 +21,6 @@ def dummyFunction():
 
 # this function creates a clickable button
 def newButton(root, name, function = dummyFunction):
-    button = Button(root, text = name)
+    button = Button(root, command = dummyFunction, text = name)
 
     return button
