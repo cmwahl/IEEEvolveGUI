@@ -1,6 +1,7 @@
 import tabSetup.memberTab as memberTab
 import tabSetup.announcementTab as announcementTab
 import tabSetup.aboutTab as aboutTab
+import tabSetup.analyticsTab as analyticsTab
 
 tabs = []
 
@@ -18,4 +19,9 @@ tabs.append({
     "TabName": "About",
     "Description": "About IEEEngage",
     "Function": aboutTab.setup,
+})
+tabs.append({
+    "TabName": "Data Analytics",
+    "Description": "Analyze membership data for events",
+    "Function": analyticsTab.setup,
 })
