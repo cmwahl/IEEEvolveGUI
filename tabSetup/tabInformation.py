@@ -16,12 +16,12 @@ tabs.append({
     "Function": announcementTab.setup,
 })
 tabs.append({
-    "TabName": "About",
-    "Description": "About IEEEngage",
-    "Function": aboutTab.setup,
-})
-tabs.append({
     "TabName": "Data Analytics",
     "Description": "Analyze membership data for events",
     "Function": analyticsTab.setup,
+})
+tabs.append({
+    "TabName": "About",
+    "Description": "About IEEEngage",
+    "Function": aboutTab.setup,
 })
