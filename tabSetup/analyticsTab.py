@@ -13,19 +13,6 @@ def setup(self):
     # self.tabName - the name of the tab
     # self.displayFrame - the root frame to build all content inside
 
-    def plot(): 
-        fig = Figure(figsize = (3, 3), dpi = 100) # the figure that will contain the plot
-        y = [i**2 for i in range(101)] # list of squares 
-        plot1 = fig.add_subplot(111) # adding the subplot 
-        plot1.plot(y) # plotting the graph 
-
-        canvas = FigureCanvasTkAgg(fig, master = self.displayFrame) # creating the Tkinter canvas 
-        canvas.draw()
-        canvas.get_tk_widget().pack() # placing the canvas on the Tkinter window 
-        toolbar = NavigationToolbar2Tk(canvas, self.displayFrame) # creating the Matplotlib toolbar 
-        toolbar.update()
-        canvas.get_tk_widget().pack() # placing the toolbar on the Tkinter window
-
     # defop (DEFault OPtion): adds 'Select year' or 'Select event' to beginning of list for default value
     def defop(array,var):
         if var == 'Y':
@@ -68,6 +55,20 @@ def setup(self):
     event_drop = ttk.Combobox(self.displayFrame, value = defop([],'E'))
     event_drop.current(0)
     event_drop.pack()
+
+    def plot(): 
+        fig = Figure(figsize = (3, 3), dpi = 100) # the figure that will contain the plot
+        y = [i**2 for i in range(101)] # list of squares 
+        plot1 = fig.add_subplot(111) # adding the subplot 
+        plot1.plot(y) # plotting the graph 
+
+        canvas = FigureCanvasTkAgg(fig, master = self.displayFrame) # creating the Tkinter canvas 
+        canvas.draw()
+        canvas.get_tk_widget().pack() # placing the canvas on the Tkinter window
+        
+        toolbar = NavigationToolbar2Tk(canvas, self.displayFrame) # creating the Matplotlib toolbar 
+        toolbar.update()
+        canvas.get_tk_widget().pack() # placing the toolbar on the Tkinter window
 
     plot_button = Button(self.displayFrame, command = plot, text = "Plot")
     plot_button.pack()
