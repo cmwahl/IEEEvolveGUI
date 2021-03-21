@@ -64,18 +64,26 @@ def setup(self):
         return array
 
     # function that returns an array containing a number of participants for a specified event 
+    def attendees():
+        pass
 
     def plot(): 
         # set figure settings
-        fig = Figure(figsize = (3, 3), dpi = 100) # sets parameters (size & dpi [dots per inch]) for the plot
+        fig = Figure(figsize = (4, 5), dpi = 100) # sets parameters (size & dpi [dots per inch]) for the plot
 
         # function to be graphed
-        num_attend = [0,40,0]
-        plot1 = fig.add_subplot(111) # adding the bar graph (code = 111) to the subplot
+        num_attend = [0,40,0] # THIS WILL USE VALUE RETURNED BY attendees() & resize_for_bar()
+        chart = fig.add_subplot(111) # adding the bar graph (code = 111) to the subplot
         ind = np.arange(len(num_attend))
-        plot1.bar(ind, num_attend, 0.8)
+        chart.bar(ind, num_attend, 0.8)
+
+        # configure axes of bar graph
+        chart.set_xticks(ind)
+        chart.set_xticklabels([" ","test"," "]) # REPLACE "TEST" WITH EVENT USER SELECTS FROM DROP-DOWN MENU
+        chart.set_ylabel("Number of Participants")
         
         # creating the Tkinter canvas 
+        # Go here for more info: https://tinyurl.com/yhol3h6s
         canvas = FigureCanvasTkAgg(fig, master = self.displayFrame)
         canvas.draw()
         canvas.get_tk_widget().pack() # placing the canvas on the Tkinter window
