@@ -3,6 +3,7 @@ from tkinter import ttk
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,  NavigationToolbar2Tk) 
 from matplotlib.figure import Figure 
 import pandas as pd
+import numpy as np
 
 df_17_18 = pd.ExcelFile('IEEE_Member_App_17-18.xlsx') # work on reading all .xlsx files in directory (looping)
 df_20_21 = pd.ExcelFile('IEEE_Member_App_20-21.xlsx')
@@ -56,17 +57,31 @@ def setup(self):
     event_drop.current(0)
     event_drop.pack()
 
-    def plot(): 
-        fig = Figure(figsize = (3, 3), dpi = 100) # the figure that will contain the plot
-        y = [i**2 for i in range(101)] # list of squares 
-        plot1 = fig.add_subplot(111) # adding the subplot 
-        plot1.plot(y) # plotting the graph 
+    # adds a 0 to the first and last index of a list, needed because bar graph will be THICC otherwise
+    def resize_for_bar(array):
+        array.insert(0,0) # add a zero to beginning of list
+        array.insert(2,0) # add a zero to end of the list
+        return array
 
-        canvas = FigureCanvasTkAgg(fig, master = self.displayFrame) # creating the Tkinter canvas 
+    # function that returns an array containing a number of participants for a specified event 
+
+    def plot(): 
+        # set figure settings
+        fig = Figure(figsize = (3, 3), dpi = 100) # sets parameters (size & dpi [dots per inch]) for the plot
+
+        # function to be graphed
+        num_attend = [0,40,0]
+        plot1 = fig.add_subplot(111) # adding the bar graph (code = 111) to the subplot
+        ind = np.arange(len(num_attend))
+        plot1.bar(ind, num_attend, 0.8)
+        
+        # creating the Tkinter canvas 
+        canvas = FigureCanvasTkAgg(fig, master = self.displayFrame)
         canvas.draw()
         canvas.get_tk_widget().pack() # placing the canvas on the Tkinter window
         
-        toolbar = NavigationToolbar2Tk(canvas, self.displayFrame) # creating the Matplotlib toolbar 
+        # creating the matplotlib toolbar 
+        toolbar = NavigationToolbar2Tk(canvas, self.displayFrame) 
         toolbar.update()
         canvas.get_tk_widget().pack() # placing the toolbar on the Tkinter window
 
