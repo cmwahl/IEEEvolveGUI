@@ -64,7 +64,10 @@ def setup(self):
         return array
 
     # function that returns an array containing a number of participants for a specified event 
-    def attendees():
+    def attendees_t():
+        pass
+
+    def attendees_s():
         pass
 
     def plot(): 
