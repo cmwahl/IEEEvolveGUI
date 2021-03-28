@@ -78,7 +78,7 @@ def setup(self):
     # Attendees: returns an array containing a number of participants for an event, with 'type' returned by check box
     def attendees(file,type):
         if type == 'default':
-            fname_list = file['First_Name'].to_list()
+            fname_list = file['First_Name'].to_list() # EXCELFILE DOES NOT SUPPORT to_list(), need a function that returns column given the name of column
             return len(fname_list)
         if type == 'major':
             pass
@@ -87,11 +87,17 @@ def setup(self):
 
     def plot():
         # set figure settings
-        fig = Figure(figsize = (4, 5), dpi = 100) # sets parameters (size & dpi [dots per inch]) for the plot
+        fig = Figure(figsize = (4,5), dpi = 100) # sets parameters (size & dpi [dots per inch]) for the plot
 
         # function to be graphed
-        num_attend = resize_for_bar([attendees(xl_20_21,'default')]) # THIS WILL USE VALUE RETURNED BY attendees_t() # Y-VALUES
         chart = fig.add_subplot(111) # adding the bar graph (code = 111) to the subplot
+
+        if year_drop.get() == year[1]:
+            currentFile = xl_17_18
+        if year_drop.get() == year[4]:
+            currentFile = xl_20_21
+        num_attend = resize_for_bar([attendees(currentFile.parse(event_drop.get()),'default')]) # THIS WILL USE VALUE RETURNED BY attendees() # Y-VALUES
+
         ind = np.arange(len(num_attend)) # X-VALUES, array with length of num_attend
         chart.bar(ind, num_attend) # plot (x,y)
 
