@@ -80,30 +80,33 @@ def setup(self):
         if type == 'default':
             fname_list = file['First_Name'].to_list() # EXCELFILE DOES NOT SUPPORT to_list(), need a function that returns column given the name of column
             return len(fname_list)
-        if type == 'major':
+        if type == 'major': # WILL USE COUNTFREQUENCY
             pass
-        if type == 'class':
+        if type == 'class': # WILL USE COUNTFREQUENCY
             pass
 
     def plot():
-        # set figure settings
+        # set figure parameters
         fig = Figure(figsize = (4,5), dpi = 100) # sets parameters (size & dpi [dots per inch]) for the plot
 
         # function to be graphed
         chart = fig.add_subplot(111) # adding the bar graph (code = 111) to the subplot
 
+        # NEEDS WORK, CASE #1: YEAR SELECTED, CASE #2 DEFAULT/MAJOR/CLASS
         if year_drop.get() == year[1]:
             currentFile = xl_17_18
         if year_drop.get() == year[4]:
             currentFile = xl_20_21
-        num_attend = resize_for_bar([attendees(currentFile.parse(event_drop.get()),'default')]) # THIS WILL USE VALUE RETURNED BY attendees() # Y-VALUES
+        y = resize_for_bar([attendees(currentFile.parse(event_drop.get()),'default')]) # THIS WILL USE VALUE RETURNED BY attendees()
 
-        ind = np.arange(len(num_attend)) # X-VALUES, array with length of num_attend
-        chart.bar(ind, num_attend) # plot (x,y)
+
+        x = np.arange(len(y))
+        chart.bar(x, y) # plot (x,y)
 
         # configure axes of bar graph
-        chart.set_xticks(ind)
+        chart.set_xticks(x)
         chart.set_xticklabels([" ",event_drop.get()," "]) # REPLACE "TEST" WITH EVENT USER SELECTS FROM DROP-DOWN MENU
+        # RESIZE NEEDS TO ONLY HAPPEN FOR ATTENDEES_TOTAL NOT ATTENDEES_MAJOR OR ATTENDEES_CLASS
         chart.set_ylabel("Number of Participants")
         
         # creating the Tkinter canvas 
