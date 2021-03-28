@@ -58,6 +58,31 @@ def setup(self):
     event_drop.current(0)
     event_drop.pack()
 
+    # Textbox for error message based on checkbox configuration WIP
+    ebox = ttk.Label(self.displayFrame, background = 'white', width=20, text=' ')
+    ebox.pack()
+
+    # checkbox configuration WIP
+    def box_selection():
+        if (major_var.get() == 1) & (class_var.get() == 0):
+            return 'major'
+        if (major_var.get() == 0) & (class_var.get() == 1):
+            return 'class'
+        while (major_var.get() == 1) & (class_var.get() == 1):
+            ebox.config(text='Please check one box at a time.') # CRASHES THE PROGRAM
+        if (major_var.get() == 0) & (class_var.get() == 0):
+            return 'default'
+
+    # checkbox for major category WIP
+    major_var = IntVar()
+    major_box = ttk.Checkbutton(self.displayFrame, text='Python',variable=major_var, onvalue=1, offvalue=0, command=box_selection)
+    major_box.pack()
+
+    # checkbox for class category WIP
+    class_var = IntVar()
+    class_box = ttk.Checkbutton(self.displayFrame, text='C++',variable=class_var, onvalue=1, offvalue=0, command=box_selection)
+    class_box.pack()
+
     # Resize for bar: adds 0 to first & last index of list, needed because bar graph will be THICC otherwise
     def resize_for_bar(array):
         array.insert(0,0) # add a zero to beginning of list
@@ -75,14 +100,14 @@ def setup(self):
                 freq[item] = 1
         return freq
 
-    # Attendees: returns an array containing a number of participants for an event, with 'type' returned by check box
+    # Attendees: returns an array containing a number of participants for an event, with 'type' returned by check box WIP
     def attendees(file,type):
         if type == 'default':
             fname_list = file['First_Name'].to_list() # EXCELFILE DOES NOT SUPPORT to_list(), need a function that returns column given the name of column
             return len(fname_list)
-        if type == 'major': # WILL USE COUNTFREQUENCY
+        if type == 'major': # WILL USE COUNTFREQUENCY 
             pass
-        if type == 'class': # WILL USE COUNTFREQUENCY
+        if type == 'class': # WILL USE COUNTFREQUENCY 
             pass
 
     def plot():
@@ -92,7 +117,7 @@ def setup(self):
         # function to be graphed
         chart = fig.add_subplot(111) # adding the bar graph (code = 111) to the subplot
 
-        # NEEDS WORK, CASE #1: YEAR SELECTED, CASE #2 DEFAULT/MAJOR/CLASS
+        # NEEDS WORK, CASE #1: YEAR SELECTED, CASE #2 DEFAULT/MAJOR/CLASS WIP
         if year_drop.get() == year[1]:
             currentFile = xl_17_18
         if year_drop.get() == year[4]:
@@ -105,7 +130,7 @@ def setup(self):
 
         # configure axes of bar graph
         chart.set_xticks(x)
-        chart.set_xticklabels([" ",event_drop.get()," "]) # REPLACE "TEST" WITH EVENT USER SELECTS FROM DROP-DOWN MENU
+        chart.set_xticklabels([" ",event_drop.get()," "]) # REPLACE "TEST" WITH EVENT USER SELECTS FROM DROP-DOWN MENU WIP
         # RESIZE NEEDS TO ONLY HAPPEN FOR ATTENDEES_TOTAL NOT ATTENDEES_MAJOR OR ATTENDEES_CLASS
         chart.set_ylabel("Number of Participants")
         
