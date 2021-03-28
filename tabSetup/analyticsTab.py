@@ -27,7 +27,8 @@ def setup(self):
                   '2019-2020',
                   '2020-2021',
                   '2021-2022',
-                  '2022-2023'],'Y')
+                  '2022-2023'],
+                'Y')
 
     def pick_year(event):       
         if year_drop.get() == year[1]:
@@ -52,7 +53,7 @@ def setup(self):
     year_drop.pack(pady=20)
     year_drop.bind("<<ComboboxSelected>>", pick_year)
 
-    # drop-down menu for event
+    # drop-down menu for events
     event_drop = ttk.Combobox(self.displayFrame, value = defop([],'E'))
     event_drop.current(0)
     event_drop.pack()
@@ -74,28 +75,29 @@ def setup(self):
                 freq[item] = 1
         return freq
 
-    # Attendees Total: returns an array containing a number of participants for an event 
-    def attendees_t(File):
-        col = list(File.columns)
-        
+    # Attendees : returns an array containing a number of participants for an event, with specified type returned by 'check box'
+    def attendees(file,type):
+        if type == 'default':
+            fname_list = file['First_Name'].to_list()
+            return len(fname_list)
+        if type == 'major':
+            pass
+        if type == 'class':
+            pass
 
-    # Attendees Specific: returns an array of participants by class or participants by major for an event
-    def attendees_s():
-        pass
-
-    def plot(): 
+    def plot():
         # set figure settings
         fig = Figure(figsize = (4, 5), dpi = 100) # sets parameters (size & dpi [dots per inch]) for the plot
 
         # function to be graphed
-        num_attend = resize_for_bar([40]) # THIS WILL USE VALUE RETURNED BY attendees_t() # Y-VALUES
+        num_attend = resize_for_bar([attendees(xl_20_21,'default')]) # THIS WILL USE VALUE RETURNED BY attendees_t() # Y-VALUES
         chart = fig.add_subplot(111) # adding the bar graph (code = 111) to the subplot
         ind = np.arange(len(num_attend)) # X-VALUES, array with length of num_attend
         chart.bar(ind, num_attend) # plot (x,y)
 
         # configure axes of bar graph
         chart.set_xticks(ind)
-        chart.set_xticklabels([" ","test"," "]) # REPLACE "TEST" WITH EVENT USER SELECTS FROM DROP-DOWN MENU
+        chart.set_xticklabels([" ",event_drop.get()," "]) # REPLACE "TEST" WITH EVENT USER SELECTS FROM DROP-DOWN MENU
         chart.set_ylabel("Number of Participants")
         
         # creating the Tkinter canvas 
