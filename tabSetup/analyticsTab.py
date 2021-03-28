@@ -75,7 +75,7 @@ def setup(self):
                 freq[item] = 1
         return freq
 
-    # Attendees : returns an array containing a number of participants for an event, with specified type returned by 'check box'
+    # Attendees: returns an array containing a number of participants for an event, with 'type' returned by check box
     def attendees(file,type):
         if type == 'default':
             fname_list = file['First_Name'].to_list()
