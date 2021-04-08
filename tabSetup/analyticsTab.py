@@ -58,32 +58,28 @@ def setup(self):
     event_drop.current(0)
     event_drop.pack()
 
-    # Textbox for error message based on checkbox configuration WIP
-    ebox = ttk.Label(self.displayFrame, background = 'white', width=20, text=' ')
-    ebox.pack()
-
     # checkbox configuration WIP
     def box_selection():
-        if (major_var.get() == 1) & (class_var.get() == 0): # if 'major' box is selected, return 'major'
+        if (major_var.get()): # if 'major' box is selected, return 'major' & disable 'class' box
+            ttk.Checkbutton(self.displayFrame, variable=class_var, state=DISABLED)
             return 'major'
-        if (major_var.get() == 0) & (class_var.get() == 1): # if 'class' box is selected, return 'class'
+        if (class_var.get()): # if 'class' box is selected, return 'class' & disable 'major' box
+            ttk.Checkbutton(self.displayFrame, variable=major_var, state=DISABLED)
             return 'class'
-        while (major_var.get() == 1) & (class_var.get() == 1): # if both boxes are selected, print an error message (may want to configure boxes that can only be selected one at a time)
-            ebox.config(text='Please check one box at a time.') # CRASHES THE PROGRAM
         if (major_var.get() == 0) & (class_var.get() == 0):
             return 'default'
 
     # checkbox for major category WIP
     major_var = IntVar()
-    major_box = ttk.Checkbutton(self.displayFrame, text='Major',variable=major_var, onvalue=1, offvalue=0, command=box_selection)
+    major_box = ttk.Checkbutton(self.displayFrame, text='Major',variable=major_var, command=box_selection)
     major_box.pack()
 
     # checkbox for class category WIP
     class_var = IntVar()
-    class_box = ttk.Checkbutton(self.displayFrame, text='Class',variable=class_var, onvalue=1, offvalue=0, command=box_selection)
+    class_box = ttk.Checkbutton(self.displayFrame, text='Class',variable=class_var, command=box_selection)
     class_box.pack()
 
-    # Resize for bar: adds 0 to first & last index of list, needed because bar graph will be THICC otherwise
+    # Resize for bar: adds 0 to first & last index of list, needed because single bar graph will be THICC otherwise
     def resize_for_bar(array):
         array.insert(0,0) # add a zero to beginning of list
         array.insert(2,0) # add a zero to end of the list
