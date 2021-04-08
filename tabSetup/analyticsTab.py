@@ -64,23 +64,23 @@ def setup(self):
 
     # checkbox configuration WIP
     def box_selection():
-        if (major_var.get() == 1) & (class_var.get() == 0):
+        if (major_var.get() == 1) & (class_var.get() == 0): # if 'major' box is selected, return 'major'
             return 'major'
-        if (major_var.get() == 0) & (class_var.get() == 1):
+        if (major_var.get() == 0) & (class_var.get() == 1): # if 'class' box is selected, return 'class'
             return 'class'
-        while (major_var.get() == 1) & (class_var.get() == 1):
+        while (major_var.get() == 1) & (class_var.get() == 1): # if both boxes are selected, print an error message (may want to configure boxes that can only be selected one at a time)
             ebox.config(text='Please check one box at a time.') # CRASHES THE PROGRAM
         if (major_var.get() == 0) & (class_var.get() == 0):
             return 'default'
 
     # checkbox for major category WIP
     major_var = IntVar()
-    major_box = ttk.Checkbutton(self.displayFrame, text='Python',variable=major_var, onvalue=1, offvalue=0, command=box_selection)
+    major_box = ttk.Checkbutton(self.displayFrame, text='Major',variable=major_var, onvalue=1, offvalue=0, command=box_selection)
     major_box.pack()
 
     # checkbox for class category WIP
     class_var = IntVar()
-    class_box = ttk.Checkbutton(self.displayFrame, text='C++',variable=class_var, onvalue=1, offvalue=0, command=box_selection)
+    class_box = ttk.Checkbutton(self.displayFrame, text='Class',variable=class_var, onvalue=1, offvalue=0, command=box_selection)
     class_box.pack()
 
     # Resize for bar: adds 0 to first & last index of list, needed because bar graph will be THICC otherwise
