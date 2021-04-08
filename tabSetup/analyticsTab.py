@@ -36,16 +36,16 @@ def setup(self):
             event_drop.current(0)
         if year_drop.get() == year[2]:
             event_drop.config(value=["No information available!"]) # write code to scan directory and check if this year's info is avaiable
-            event_drop.current(0)            
+            event_drop.current(0)
         if year_drop.get() == year[3]:
             event_drop.config(value=["No information available!"])
             event_drop.current(0)
         if year_drop.get() == year[4]:
             event_drop.config(value=defop(xl_20_21.sheet_names,'E'))
-            event_drop.current(0)            
+            event_drop.current(0)
         if year_drop.get() == year[5]:
             event_drop.config(value=["No information available!"])
-            event_drop.current(0)            
+            event_drop.current(0)
 
     # drop-down menu for years
     year_drop = ttk.Combobox(self.displayFrame, value = year)
