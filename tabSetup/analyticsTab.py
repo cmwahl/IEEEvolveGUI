@@ -5,7 +5,7 @@ from matplotlib.figure import Figure
 import pandas as pd
 import numpy as np
 
-xl_17_18 = pd.ExcelFile('IEEE_Member_App_17-18.xlsx') # work on reading all .xlsx files in directory (looping)
+xl_17_18 = pd.ExcelFile('IEEE_Member_App_17-18.xlsx') # current placeholder, focus on linking SQL and Tkinter GUI
 xl_20_21 = pd.ExcelFile('IEEE_Member_App_20-21.xlsx')
 
 def setup(self):
@@ -14,7 +14,7 @@ def setup(self):
     # self.tabName - the name of the tab
     # self.displayFrame - the root frame to build all content inside
 
-    # Default Option: adds 'Select year' or 'Select event' to beginning of list for default value
+    # defop (default option): adds 'Select year' or 'Select event' to beginning of list for default value
     def defop(array,var):
         if var == 'Y':
             array.insert(0,'---Select year---')
@@ -30,12 +30,13 @@ def setup(self):
                   '2022-2023'],
                 'Y')
 
-    def pick_year(event):       
+    # pick_year: configure what happens when you select options in drop-down menu
+    def pick_year(event):
         if year_drop.get() == year[1]:
             event_drop.config(value=defop(xl_17_18.sheet_names,'E'))
             event_drop.current(0)
         if year_drop.get() == year[2]:
-            event_drop.config(value=["No information available!"]) # write code to scan directory and check if this year's info is avaiable
+            event_drop.config(value=["No information available!"]) # write code to scan directory and check if this year's info is available instead of hard coding
             event_drop.current(0)
         if year_drop.get() == year[3]:
             event_drop.config(value=["No information available!"])
@@ -50,7 +51,7 @@ def setup(self):
     # drop-down menu for years
     year_drop = ttk.Combobox(self.displayFrame, value = year)
     year_drop.current(0)
-    year_drop.pack(pady=20)
+    year_drop.pack(pady=20) # create spacing between drop down menus
     year_drop.bind("<<ComboboxSelected>>", pick_year)
 
     # drop-down menu for events
@@ -58,45 +59,49 @@ def setup(self):
     event_drop.current(0)
     event_drop.pack()
 
-    # checkbox configuration WIP
+    # box_selection: checkbox configuration
     def box_selection():
-        if (major_var.get()): # if 'major' box is selected, return 'major' & disable 'class' box
-            ttk.Checkbutton(self.displayFrame, variable=class_var, state=DISABLED)
+        while (major_var.get()): # if 'major' box is selected, return 'major' & disable 'class' box
+            class_box.config(state=DISABLED)
+            # print("Major box checked")
             return 'major'
-        if (class_var.get()): # if 'class' box is selected, return 'class' & disable 'major' box
-            ttk.Checkbutton(self.displayFrame, variable=major_var, state=DISABLED)
+        while (class_var.get()): # if 'class' box is selected, return 'class' & disable 'major' box
+            major_box.config(state=DISABLED)
+            # print("Class box checked")
             return 'class'
         if (major_var.get() == 0) & (class_var.get() == 0):
+            major_box.config(state=NORMAL)
+            class_box.config(state=NORMAL)
+            # print("Both boxes unchecked")
             return 'default'
 
-    # checkbox for major category WIP
+    # checkbox for major category
     major_var = IntVar()
     major_box = ttk.Checkbutton(self.displayFrame, text='Major',variable=major_var, command=box_selection)
     major_box.pack()
 
-    # checkbox for class category WIP
+    # checkbox for class category
     class_var = IntVar()
     class_box = ttk.Checkbutton(self.displayFrame, text='Class',variable=class_var, command=box_selection)
     class_box.pack()
 
-    # Resize for bar: adds 0 to first & last index of list, needed because single bar graph will be THICC otherwise
+    # resize_for_bar: adds 0 to first & last index of list, needed because single bar graph will be THICC otherwise
     def resize_for_bar(array):
         array.insert(0,0) # add a zero to beginning of list
         array.insert(2,0) # add a zero to end of the list
         return array
 
-    # Count Frequency: creates dictionary {'Target': # of appearances}
+    # CountFrequency: creates dictionary {'Target': # of appearances}
     def CountFrequency(list):
-        # Creating an empty dictionary 
-        freq = {}
+        freq = {} # Creating an empty dictionary 
         for item in list:
             if item in freq: # if item is already in dictionary, add count
                 freq[item] += 1
-            else: # if item is new, add it to the dictionary
+            else: # if item is new, add it to the dictionary and initialize count
                 freq[item] = 1
         return freq
 
-    # Attendees: returns an array containing a number of participants for an event, with 'type' returned by check box WIP
+    # attendees: returns an array containing a number of participants for an event, with 'type' returned by check box WIP
     def attendees(file,type):
         if type == 'default':
             fname_list = file['First_Name'].to_list() # EXCELFILE DOES NOT SUPPORT to_list(), need a function that returns column given the name of column

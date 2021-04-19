@@ -1,4 +1,5 @@
 analyticsTab Todo:
-1. Configure code to only allow one check box to be marked at a time (major and class checkbox)
-2. Create/find a [custom] function that will address an entire column of data for attendees function
+1. Configure code to only allow one check box to be marked at a time [lines 62-81] COMPLETED
+    https://stackoverflow.com/questions/39460728/enabling-or-disabling-checkbox-with-conditionals
+2. Create/find a [custom] function that will address an entire column of data for attendees function [line 102]
 3. Address cases within plot function
