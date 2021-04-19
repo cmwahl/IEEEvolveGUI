@@ -101,7 +101,7 @@ def setup(self):
         if type == 'default':
             fname_list = file['First_Name'].to_list() # EXCELFILE DOES NOT SUPPORT to_list(), need a function that returns column given the name of column
             return len(fname_list)
-        if type == 'major': # WILL USE COUNTFREQUENCY 
+        if type == 'major': # WILL USE COUNTFREQUENCY
             pass
         if type == 'class': # WILL USE COUNTFREQUENCY 
             pass
